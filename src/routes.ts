@@ -9,6 +9,9 @@ import { AuthUserController } from './controllers/user/AuthUserController'
 import { DetailUserController } from './controllers/user/DetailUserController'
 import { EditActiveUserController } from './controllers/user/EditActiveUserController'
 import { ListUserContoller } from './controllers/user/ListeUserController'
+import { ListePresenceDayController } from './controllers/PresenceDay/ListePresenceDayController'
+import { CreatePresenceDayController } from './controllers/PresenceDay/CreatePresenceDayController'
+import { DeletePresenceDayController } from './controllers/PresenceDay/DeletePresenceDayController'
 const router = Router()
 
 // Configuração do envio de arquivos
@@ -20,6 +23,8 @@ router.get('/', (req: Request, res: Response) => {
   `)
 })
 
+// USER //
+
 // Cria um novo usuario
 router.post('/users', new CreateUserController().handle)
 // Pega todos os usuarios e seus cursos
@@ -30,5 +35,15 @@ router.post('/users/edit', isAuthenticated, new EditActiveUserController().handl
 router.post('/login', new AuthUserController().handle)
 // Pega os detalhes do usuario logado
 router.get('/me', isAuthenticated, new DetailUserController().handle)
+
+
+// PRESENCE DAY //
+
+// Pega todas as escalas do sistema
+router.get('/presenceday', isAuthenticated, new ListePresenceDayController().handle)
+// Cria um novo dia de trabalho
+router.post('/presenceday', isAuthenticated, new CreatePresenceDayController().handle)
+// Delta presnece day
+router.delete('/presenceday', isAuthenticated, new DeletePresenceDayController().handle)
 
 export { router }
