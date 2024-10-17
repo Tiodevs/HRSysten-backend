@@ -12,6 +12,7 @@ import { ListUserContoller } from './controllers/user/ListeUserController'
 import { ListePresenceDayController } from './controllers/PresenceDay/ListePresenceDayController'
 import { CreatePresenceDayController } from './controllers/PresenceDay/CreatePresenceDayController'
 import { DeletePresenceDayController } from './controllers/PresenceDay/DeletePresenceDayController'
+import { CreateAttendanceController } from './controllers/Attendance/CreateAttendanceController'
 const router = Router()
 
 // Configuração do envio de arquivos
@@ -45,5 +46,10 @@ router.get('/presenceday', isAuthenticated, new ListePresenceDayController().han
 router.post('/presenceday', isAuthenticated, new CreatePresenceDayController().handle)
 // Delta presnece day
 router.delete('/presenceday', isAuthenticated, new DeletePresenceDayController().handle)
+
+// ATTENDANCE //
+// Cria um registro de ponto
+router.post('/attendance', isAuthenticated, new CreateAttendanceController().handle)
+
 
 export { router }
