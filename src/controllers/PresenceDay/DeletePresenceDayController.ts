@@ -3,7 +3,7 @@ import { DeletePreszenceDayService } from "../../services/PresenceDay/DeletePres
 
 class DeletePresenceDayController {
   async handle(req: Request, res: Response) {
-    const presenceday_id = req.query.event_id as string
+    const presenceday_id = req.query.presenceday_id as string
 
     console.log(presenceday_id)
 
