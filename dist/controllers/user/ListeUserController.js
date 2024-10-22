@@ -9,16 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RemoveItemController = void 0;
-const RemoveItemService_1 = require("../../services/order/RemoveItemService");
-class RemoveItemController {
+exports.ListUserContoller = void 0;
+const ListUserService_1 = require("../../services/user/ListUserService");
+class ListUserContoller {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const item_id = req.query.item_id;
-            const removeItemService = new RemoveItemService_1.RemoveItemService();
-            const order = yield removeItemService.execute({ item_id });
-            return res.json(order);
+            const listUserServices = new ListUserService_1.ListUserService();
+            const listUser = yield listUserServices.execute();
+            res.json(listUser);
         });
     }
 }
-exports.RemoveItemController = RemoveItemController;
+exports.ListUserContoller = ListUserContoller;

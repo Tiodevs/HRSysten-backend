@@ -12,20 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AddItemService = void 0;
+exports.CreateAttendenceService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
-class AddItemService {
+class CreateAttendenceService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ order_id, product_id, amount }) {
-            const order = yield prisma_1.default.item.create({
+        return __awaiter(this, arguments, void 0, function* ({ userId, type }) {
+            // Verifica se tem alguim campo vazio
+            if (!userId) {
+                throw new Error("User não enviado");
+            }
+            if (!type) {
+                throw new Error("Tipo não enviado");
+            }
+            // Cria o registro do ponto
+            const attendance = yield prisma_1.default.attendance.create({
                 data: {
-                    order_id,
-                    product_id,
-                    amount
-                }
+                    userId,
+                    type,
+                },
             });
-            return order;
+            return attendance;
         });
     }
 }
-exports.AddItemService = AddItemService;
+exports.CreateAttendenceService = CreateAttendenceService;

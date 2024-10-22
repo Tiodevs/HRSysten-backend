@@ -12,18 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RemoveItemService = void 0;
+exports.EditActiveUserService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
-class RemoveItemService {
+class EditActiveUserService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ item_id }) {
-            const order = yield prisma_1.default.item.delete({
-                where: {
-                    id: item_id
+        return __awaiter(this, arguments, void 0, function* ({ user_id }) {
+            // Primeiro, busque o usuário pelo ID
+            const user = yield prisma_1.default.user.findUnique({
+                where: { id: user_id }
+            });
+            if (!user) {
+                throw new Error('User not found');
+            }
+            // Inverta o valor de "active" (se for true, muda para false e vice-versa)
+            const updatedUser = yield prisma_1.default.user.update({
+                where: { id: user_id },
+                data: {
+                    active: !user.active
                 }
             });
-            return order;
+            return updatedUser;
         });
     }
 }
-exports.RemoveItemService = RemoveItemService;
+exports.EditActiveUserService = EditActiveUserService;

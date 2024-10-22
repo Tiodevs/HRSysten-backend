@@ -8,26 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateProductService = void 0;
-const prisma_1 = __importDefault(require("../../prisma"));
-class CreateProductService {
-    execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ name, price, description, banner, category_id }) {
-            const product = yield prisma_1.default.product.create({
-                data: {
-                    name,
-                    price,
-                    description,
-                    banner,
-                    category_id
-                }
-            });
-            return product;
+exports.DeletePresenceDayController = void 0;
+const DeletePreszenceDayService_1 = require("../../services/PresenceDay/DeletePreszenceDayService");
+class DeletePresenceDayController {
+    handle(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const presenceday_id = req.query.presenceday_id;
+            console.log(presenceday_id);
+            const deletePreszenceDayService = new DeletePreszenceDayService_1.DeletePreszenceDayService();
+            const preszenceDay = yield deletePreszenceDayService.execute({ presenceday_id });
+            return res.json(preszenceDay);
         });
     }
 }
-exports.CreateProductService = CreateProductService;
+exports.DeletePresenceDayController = DeletePresenceDayController;

@@ -8,17 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FinishOrderController = void 0;
-const FinishOrderService_1 = require("../../services/order/FinishOrderService");
-class FinishOrderController {
-    handle(req, res) {
+exports.ListUserService = void 0;
+const prisma_1 = __importDefault(require("../../prisma"));
+class ListUserService {
+    execute() {
         return __awaiter(this, void 0, void 0, function* () {
-            const { order_id } = req.body;
-            const finishOrder = new FinishOrderService_1.FinishOrderService();
-            const order = yield finishOrder.execute({ order_id });
-            return res.json(order);
+            const listUsers = prisma_1.default.user.findMany({
+                orderBy: {
+                    name: 'asc',
+                },
+                include: {
+                    Attendance: true,
+                    PresenceDay: true
+                }
+            });
+            return listUsers;
         });
     }
 }
-exports.FinishOrderController = FinishOrderController;
+exports.ListUserService = ListUserService;

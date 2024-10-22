@@ -22,7 +22,15 @@ class DetailUserService {
                 select: {
                     id: true,
                     name: true,
-                    email: true
+                    email: true,
+                    phoneNumber: true,
+                    role: true,
+                    active: true,
+                    profilePhoto: true,
+                    Attendance: true,
+                    PresenceDay: true,
+                    password: true,
+                    createdAt: true
                 }
             });
             return user;

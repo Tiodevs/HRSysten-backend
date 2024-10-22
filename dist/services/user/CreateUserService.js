@@ -17,7 +17,8 @@ const bcryptjs_1 = require("bcryptjs");
 const prisma_1 = __importDefault(require("../../prisma"));
 class CreateUserService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ name, email, password }) {
+        return __awaiter(this, arguments, void 0, function* ({ name, email, password, phoneNumber, profilePhoto, role }) {
+            // Verifica se tem alguim campo vazio
             if (!email) {
                 throw new Error("E-mail incorreto");
             }
@@ -27,6 +28,16 @@ class CreateUserService {
             if (!password) {
                 throw new Error("Senha não informada");
             }
+            if (!phoneNumber) {
+                throw new Error("phoneNumber não informada");
+            }
+            if (!profilePhoto) {
+                throw new Error("profilePhoto não informada");
+            }
+            if (!role) {
+                throw new Error("role não informada");
+            }
+            // Verifica se já existe o use com o email
             const userExists = yield prisma_1.default.user.findFirst({
                 where: {
                     email: email
@@ -35,17 +46,26 @@ class CreateUserService {
             if (userExists) {
                 throw new Error("Usuário já cadastrado");
             }
+            // Cria a criptografia da senha
             const hashedPassword = yield (0, bcryptjs_1.hash)(password, 8);
+            // Cria o user
             const user = yield prisma_1.default.user.create({
                 data: {
                     name: name,
                     email: email,
-                    password: hashedPassword
+                    password: hashedPassword,
+                    phoneNumber: phoneNumber,
+                    role: role,
+                    profilePhoto: profilePhoto
                 },
                 select: {
                     id: true,
                     name: true,
                     email: true,
+                    phoneNumber: true,
+                    role: true,
+                    active: true,
+                    profilePhoto: true,
                 }
             });
             return user;

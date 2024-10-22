@@ -8,17 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListByCategoryController = void 0;
-const ListByCategoryService_1 = require("../../services/product/ListByCategoryService");
-class ListByCategoryController {
-    handle(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const category_id = req.query.category_id;
-            const listByCategory = new ListByCategoryService_1.ListByCategoryService();
-            const products = yield listByCategory.execute({ category_id });
-            return res.json(products);
+exports.DeletePreszenceDayService = void 0;
+const prisma_1 = __importDefault(require("../../prisma"));
+class DeletePreszenceDayService {
+    execute(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ presenceday_id }) {
+            const presenceday = yield prisma_1.default.presenceDay.delete({
+                where: {
+                    id: presenceday_id
+                }
+            });
+            return presenceday;
         });
     }
 }
-exports.ListByCategoryController = ListByCategoryController;
+exports.DeletePreszenceDayService = DeletePreszenceDayService;

@@ -8,27 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateCategoryService = void 0;
-const prisma_1 = __importDefault(require("../../prisma"));
-class CreateCategoryService {
-    execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ name }) {
-            if (!name) {
-                throw new Error('Nome não informado');
-            }
-            const category = yield prisma_1.default.category.create({
-                data: { name },
-                select: {
-                    id: true,
-                    name: true
-                }
+exports.CreateAttendanceController = void 0;
+const CreateAttendenceService_1 = require("../../services/Attendance/CreateAttendenceService");
+class CreateAttendanceController {
+    handle(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { userId, type } = req.body;
+            const createAttendenceService = new CreateAttendenceService_1.CreateAttendenceService();
+            const attendence = yield createAttendenceService.execute({
+                userId,
+                type
             });
-            return category;
+            return res.json(attendence);
         });
     }
 }
-exports.CreateCategoryService = CreateCategoryService;
+exports.CreateAttendanceController = CreateAttendanceController;

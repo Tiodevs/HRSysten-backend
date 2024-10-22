@@ -9,15 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ListOrdersController = void 0;
-const ListOrdersService_1 = require("../../services/order/ListOrdersService");
-class ListOrdersController {
+exports.ListePresenceDayController = void 0;
+const ListPresenceDayService_1 = require("../../services/PresenceDay/ListPresenceDayService");
+class ListePresenceDayController {
     handle(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const listOrder = new ListOrdersService_1.ListOrdersService();
-            const orders = yield listOrder.execute();
-            return res.json(orders);
+            const listPresenceDayService = new ListPresenceDayService_1.ListPresenceDayService();
+            const listPresenceDay = yield listPresenceDayService.execute();
+            res.json(listPresenceDay);
         });
     }
 }
-exports.ListOrdersController = ListOrdersController;
+exports.ListePresenceDayController = ListePresenceDayController;

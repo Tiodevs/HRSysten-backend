@@ -3,11 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAuthenticated = isAuthenticated;
 const jsonwebtoken_1 = require("jsonwebtoken");
 function isAuthenticated(req, res, next) {
-    // receber o token no header de autenticação
+    // Verifica se receber o token no header de autenticação
     const authToken = req.headers.authorization;
     if (!authToken) {
         return res.status(401).end();
     }
+    // Pega so o token
     const [, token] = authToken.split(" ");
     // verifica se o token é válido
     try {

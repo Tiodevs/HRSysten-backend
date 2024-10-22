@@ -12,21 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SendOrderService = void 0;
+exports.ListPresenceDayService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
-class SendOrderService {
-    execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ order_id }) {
-            const order = yield prisma_1.default.order.update({
-                where: {
-                    id: order_id
+class ListPresenceDayService {
+    execute() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const listPresenceDays = prisma_1.default.presenceDay.findMany({
+                orderBy: {
+                    day: 'asc',
                 },
-                data: {
-                    draft: false
+                include: {
+                    user: true
                 }
             });
-            return order;
+            return listPresenceDays;
         });
     }
 }
-exports.SendOrderService = SendOrderService;
+exports.ListPresenceDayService = ListPresenceDayService;

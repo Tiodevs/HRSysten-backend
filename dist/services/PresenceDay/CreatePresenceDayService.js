@@ -12,22 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DetailOrderService = void 0;
+exports.CreatePresenceDayService = void 0;
 const prisma_1 = __importDefault(require("../../prisma"));
-class DetailOrderService {
+class CreatePresenceDayService {
     execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ order_id }) {
-            const orders = yield prisma_1.default.item.findMany({
-                where: {
-                    order_id
+        return __awaiter(this, arguments, void 0, function* ({ userId, day }) {
+            // Verifica se tem alguim campo vazio
+            if (!userId) {
+                throw new Error("User não enviado");
+            }
+            if (!day) {
+                throw new Error("Data não enviado");
+            }
+            // Cria o registro do dia presencial
+            const presenceDay = yield prisma_1.default.presenceDay.create({
+                data: {
+                    userId,
+                    day: new Date(day), // Armazena a data enviada
                 },
-                include: {
-                    product: true,
-                    order: true,
-                }
             });
-            return orders;
+            return presenceDay;
         });
     }
 }
-exports.DetailOrderService = DetailOrderService;
+exports.CreatePresenceDayService = CreatePresenceDayService;

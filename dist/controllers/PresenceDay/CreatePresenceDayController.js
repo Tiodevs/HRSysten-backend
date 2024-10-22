@@ -8,22 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RemoveOrderService = void 0;
-const prisma_1 = __importDefault(require("../../prisma"));
-class RemoveOrderService {
-    execute(_a) {
-        return __awaiter(this, arguments, void 0, function* ({ order_id }) {
-            const order = yield prisma_1.default.order.delete({
-                where: {
-                    id: order_id,
-                }
+exports.CreatePresenceDayController = void 0;
+const CreatePresenceDayService_1 = require("../../services/PresenceDay/CreatePresenceDayService");
+class CreatePresenceDayController {
+    handle(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { userId, day } = req.body;
+            const createPresenceDayService = new CreatePresenceDayService_1.CreatePresenceDayService();
+            const presenceDay = yield createPresenceDayService.execute({
+                userId,
+                day
             });
-            return order;
+            return res.json(presenceDay);
         });
     }
 }
-exports.RemoveOrderService = RemoveOrderService;
+exports.CreatePresenceDayController = CreatePresenceDayController;
