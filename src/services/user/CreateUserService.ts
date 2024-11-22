@@ -8,10 +8,15 @@ interface UserRequest {
   phoneNumber: string
   profilePhoto: string
   role: string
+  contrato: string
+  cidade: string
+  nascimento: string
+  CPF: string
+  RG: string
 }
 
 class CreateUserService {
-  async execute({ name, email, password, phoneNumber, profilePhoto, role }: UserRequest) {
+  async execute({ name, email, password, phoneNumber, profilePhoto, role, contrato, cidade, nascimento, CPF, RG }: UserRequest) {
 
     // Verifica se tem alguim campo vazio
     if (!email) {
@@ -31,6 +36,21 @@ class CreateUserService {
     }
     if (!role) {
       throw new Error("role não informada")
+    }
+    if (!cidade) {
+      throw new Error("cidade não informada")
+    }
+    if (!CPF) {
+      throw new Error("CPF não informada")
+    }
+    if (!RG) {
+      throw new Error("RG não informada")
+    }
+    if (!contrato) {
+      throw new Error("contrato não informada")
+    }
+    if (!nascimento) {
+      throw new Error("Data de nascimento não informada")
     }
 
 
@@ -56,7 +76,12 @@ class CreateUserService {
         password: hashedPassword,
         phoneNumber: phoneNumber,
         role: role,
-        profilePhoto: profilePhoto
+        profilePhoto: profilePhoto,
+        contrato: contrato, 
+        cidade: cidade, 
+        nascimento: nascimento, 
+        CPF: CPF, 
+        RG: RG
       },
       select: {
         id: true,

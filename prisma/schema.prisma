@@ -1,4 +1,5 @@
-
+// npx prisma generate
+// npx prisma migrate dev --name AddContratoUser
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,6 +20,11 @@ model User {
   role         String   // Cargo
   createdAt    DateTime @default(now())
   active       Boolean  @default(true) // Se está ativo na empresa
+  contrato     String
+  cidade       String
+  nascimento   String
+  CPF          String
+  RG           String
 
   Attendance   Attendance[] // Relacionamento com os registros de ponto
   PresenceDay  PresenceDay[] // Relacionamento com os dias presenciais

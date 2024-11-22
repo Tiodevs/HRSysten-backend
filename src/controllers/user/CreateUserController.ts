@@ -10,42 +10,56 @@ cloudinary.config({
 
 export class CreateUserController {
     async handle(req: Request, res: Response) {
+        try {
+            console.log("Iniciando criação de usuário");
 
-        const { name, email, password, phoneNumber, role } = req.body
+            const { name, email, password, phoneNumber, role, contrato, cidade, nascimento, CPF, RG } = req.body;
 
-        const createUserService = new CreateUserService()
+            const createUserService = new CreateUserService();
 
-        if (!req.files || Object.keys(req.files).length === 0) {
-            throw new Error("error upload file image")
-        } else {
+            if (!req.files || Object.keys(req.files).length === 0) {
+                console.log("Nenhum arquivo enviado para upload.");
+                throw new Error("Erro ao enviar arquivo de imagem.");
+            } else {
+                // Enviar a imagem para a API do Cloudinary
+                const file: any = req.files['photourl'];
 
-            // Enviar a imagem para a api docaludnary
-            const file: any = req.files['photourl']
+                const resultFile: UploadApiResponse = await new Promise((resolve, reject) => {
+                    cloudinary.uploader.upload_stream({}, function (error, result) {
+                        if (error) {
+                            reject(error);
+                            return;
+                        }
+                        resolve(result);
+                    }).end(file.data);
+                });
 
-            const resultFile: UploadApiResponse = await new Promise((resolve, reject) => {
-                cloudinary.uploader.upload_stream({}, function (error, result) {
-                    if (error) {
-                        reject(error)
-                        return
-                    }
+                console.log("Arquivo enviado para o Cloudinary:", resultFile);
 
-                    resolve(result)
-                }).end(file.data)
-            })
+                const user = await createUserService.execute({
+                    name,
+                    email,
+                    password,
+                    phoneNumber,
+                    role,
+                    profilePhoto: resultFile.url,
+                    contrato,
+                    cidade,
+                    nascimento,
+                    CPF,
+                    RG
+                });
 
-            console.log(resultFile)
+                console.log("Usuário criado com sucesso:", user);
 
-            const user = await createUserService.execute({
-                name,
-                email,
-                password,
-                phoneNumber,
-                role,
-                profilePhoto: resultFile.url
-            })
-
-            return res.json(user)
+                return res.json(user);
+            }
+        } catch (error: any) {
+            console.error("Erro ao criar usuário:", error.message, error.stack);
+            return res.status(500).json({
+                status: "error",
+                message: error.message || "Erro interno no servidor."
+            });
         }
-
     }
 }
