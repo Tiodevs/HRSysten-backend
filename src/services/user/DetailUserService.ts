@@ -15,7 +15,12 @@ class DetailUserService {
                 Attendance: true,
                 PresenceDay: true,
                 password: true,
-                createdAt: true
+                createdAt: true,
+                cidade: true,
+                contrato: true,
+                CPF: true,
+                nascimento: true,
+                RG: true
             }
         })
 

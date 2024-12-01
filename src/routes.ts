@@ -13,6 +13,7 @@ import { ListePresenceDayController } from './controllers/PresenceDay/ListePrese
 import { CreatePresenceDayController } from './controllers/PresenceDay/CreatePresenceDayController'
 import { DeletePresenceDayController } from './controllers/PresenceDay/DeletePresenceDayController'
 import { CreateAttendanceController } from './controllers/Attendance/CreateAttendanceController'
+import { ContTimeController } from './controllers/Attendance/CountTimeController'
 const router = Router()
 
 // Configuração do envio de arquivos
@@ -50,6 +51,8 @@ router.delete('/presenceday', isAuthenticated, new DeletePresenceDayController()
 // ATTENDANCE //
 // Cria um registro de ponto
 router.post('/attendance', isAuthenticated, new CreateAttendanceController().handle)
+// Calcular tempo
+router.post('/attendance/time', isAuthenticated, new ContTimeController().handle)
 
 
 export { router }
