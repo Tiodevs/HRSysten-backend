@@ -13,10 +13,11 @@ interface UserRequest {
   nascimento: string
   CPF: string
   RG: string
+  Modality: string
 }
 
 class CreateUserService {
-  async execute({ name, email, password, phoneNumber, profilePhoto, role, contrato, cidade, nascimento, CPF, RG }: UserRequest) {
+  async execute({ name, email, password, phoneNumber, profilePhoto, role, contrato, cidade, nascimento, CPF, RG, Modality }: UserRequest) {
 
     // Verifica se tem alguim campo vazio
     if (!email) {
@@ -52,6 +53,9 @@ class CreateUserService {
     if (!nascimento) {
       throw new Error("Data de nascimento não informada")
     }
+    if (!Modality) {
+      throw new Error("Modality não informada")
+    }
 
 
     // Verifica se já existe o use com o email
@@ -81,7 +85,8 @@ class CreateUserService {
         cidade: cidade, 
         nascimento: nascimento, 
         CPF: CPF, 
-        RG: RG
+        RG: RG,
+        Modality: Modality
       },
       select: {
         id: true,

@@ -13,7 +13,7 @@ export class CreateUserController {
         try {
             console.log("Iniciando criação de usuário");
 
-            const { name, email, password, phoneNumber, role, contrato, cidade, nascimento, CPF, RG } = req.body;
+            const { name, Modality, email, password, phoneNumber, role, contrato, cidade, nascimento, CPF, RG } = req.body;
 
             const createUserService = new CreateUserService();
 
@@ -47,7 +47,8 @@ export class CreateUserController {
                     cidade,
                     nascimento,
                     CPF,
-                    RG
+                    RG,
+                    Modality
                 });
 
                 console.log("Usuário criado com sucesso:", user);

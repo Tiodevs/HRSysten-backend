@@ -1,5 +1,5 @@
 // npx prisma generate
-// npx prisma migrate dev --name AddContratoUser
+// npx prisma migrate dev --name AddModality
 generator client {
   provider = "prisma-client-js"
 }
@@ -25,6 +25,7 @@ model User {
   nascimento   String
   CPF          String
   RG           String
+  Modality     String
 
   Attendance   Attendance[] // Relacionamento com os registros de ponto
   PresenceDay  PresenceDay[] // Relacionamento com os dias presenciais
