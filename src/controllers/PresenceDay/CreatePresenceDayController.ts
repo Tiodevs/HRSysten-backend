@@ -4,14 +4,16 @@ import { CreatePresenceDayService } from "../../services/PresenceDay/CreatePrese
 export class CreatePresenceDayController {
     async handle(req: Request, res: Response) {
 
-        const { userId, day } = req.body
-
+        const { userId, day, type, description, title } = req.body
         
         const createPresenceDayService = new CreatePresenceDayService()
 
         const presenceDay = await createPresenceDayService.execute({
             userId, 
-            day
+            day,
+            type, 
+            description,
+            title
         })
         
         return res.json(presenceDay)

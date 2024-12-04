@@ -10,7 +10,7 @@ class ListPresenceDayService {
             include: {
                 user: true
             }
-        }) 
+        })
 
         return listPresenceDays
     }

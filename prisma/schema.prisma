@@ -1,5 +1,5 @@
 // npx prisma generate
-// npx prisma migrate dev --name AddModality
+// npx prisma migrate dev --name EditPresenceDay
 generator client {
   provider = "prisma-client-js"
 }
@@ -41,9 +41,12 @@ model Attendance {
 }
 
 model PresenceDay {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  type          String   @default("Sem informação")
+  description   String   @default("Sem informação")
+  title         String   @default("Sem informação")
 
   day       DateTime // Data específica em que o funcionário deve estar presencialmente
 }
