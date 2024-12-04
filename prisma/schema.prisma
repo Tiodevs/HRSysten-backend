@@ -25,7 +25,7 @@ model User {
   nascimento   String
   CPF          String
   RG           String
-  Modality     String
+  Modality     String   @default("Indefinido")
 
   Attendance   Attendance[] // Relacionamento com os registros de ponto
   PresenceDay  PresenceDay[] // Relacionamento com os dias presenciais
