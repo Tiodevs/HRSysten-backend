@@ -14,6 +14,7 @@ import { CreatePresenceDayController } from './controllers/PresenceDay/CreatePre
 import { DeletePresenceDayController } from './controllers/PresenceDay/DeletePresenceDayController'
 import { CreateAttendanceController } from './controllers/Attendance/CreateAttendanceController'
 import { ContTimeController } from './controllers/Attendance/CountTimeController'
+import { EditUserController } from './controllers/user/EditUserController'
 const router = Router()
 
 // Configuração do envio de arquivos
@@ -33,6 +34,7 @@ router.post('/users', new CreateUserController().handle)
 router.get('/users', isAuthenticated, new ListUserContoller().handle)
 // Desativa um usuario
 router.post('/users/edit', isAuthenticated, new EditActiveUserController().handle)
+router.post('/users/edit/all', isAuthenticated, new EditUserController().handle)
 // Faz a altenticação de login do usuario
 router.post('/login', new AuthUserController().handle)
 // Pega os detalhes do usuario logado
@@ -48,7 +50,9 @@ router.post('/presenceday', isAuthenticated, new CreatePresenceDayController().h
 // Delta presnece day
 router.delete('/presenceday', isAuthenticated, new DeletePresenceDayController().handle)
 
+
 // ATTENDANCE //
+
 // Cria um registro de ponto
 router.post('/attendance', isAuthenticated, new CreateAttendanceController().handle)
 // Calcular tempo
